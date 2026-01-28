@@ -1,11 +1,17 @@
 pipeline {
     agent any
 
+    // Use NodeJS installed by Jenkins plugin
+    tools {
+        nodejs 'node20'
+    }
+
     environment {
         FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -14,6 +20,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
+                echo 'Installing dependencies...'
                 sh 'node -v'
                 sh 'npm -v'
                 sh 'npm install'
@@ -21,14 +28,16 @@ pipeline {
             }
         }
 
-        stage('Build Angular') {
+        stage('Build Angular App') {
             steps {
+                echo 'Building Angular app...'
                 sh 'npx ng build --configuration production'
             }
         }
 
         stage('Deploy to Firebase') {
             steps {
+                echo 'Deploying to Firebase Hosting...'
                 sh 'firebase deploy --token $FIREBASE_TOKEN'
             }
         }
@@ -36,10 +45,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Firebase deployment successful'
+            echo '✅ Angular app deployed successfully to Firebase!'
         }
         failure {
-            echo '❌ Firebase deployment failed'
+            echo '❌ Build or deployment failed. Check logs.'
         }
     }
 }
