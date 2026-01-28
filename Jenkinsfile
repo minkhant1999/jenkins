@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:18-alpine' } // Node environment
+    }
+
+    environment {
+        FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
+    }
 
     stages {
         stage('Checkout') {
@@ -8,23 +14,22 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                sh '''
-                  npm install
-                  npm run build
-                '''
+                sh 'npm install'
+                sh 'npm install -g firebase-tools'
             }
         }
 
-        stage('Deploy') {
+        stage('Build Angular') {
             steps {
-                sh '''
-                  docker stop angular-app || true
-                  docker rm angular-app || true
-                  docker build -t angular-app .
-                  docker run -d -p 4200:80 angular-app
-                '''
+                sh 'ng build --configuration production'
+            }
+        }
+
+        stage('Deploy to Firebase') {
+            steps {
+                sh 'firebase deploy --token $FIREBASE_TOKEN'
             }
         }
     }
