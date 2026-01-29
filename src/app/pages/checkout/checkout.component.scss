@@ -1,13 +1,21 @@
 .checkout-page {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1000px;
   margin: 0 auto;
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 }
 
 .page-header h1 {
   color: var(--water-dark);
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .page-header p {
@@ -16,21 +24,26 @@
 
 .checkout-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   align-items: start;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
   }
 }
 
 .checkout-form {
   background: white;
-  padding: 2rem;
+  padding: 1.25rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 82, 73, 0.08);
   border: 1px solid rgba(0, 82, 73, 0.1);
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 }
 
 .form-section h2 {
@@ -52,35 +65,64 @@
 
   input {
     width: 100%;
-    padding: 0.7rem 0.9rem;
+    padding: 0.75rem 0.9rem;
+    min-height: var(--touch-min);
     border: 1px solid rgba(0, 82, 73, 0.25);
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 16px; /* prevents zoom on iOS when focusing inputs */
 
     &:focus {
       outline: none;
       border-color: var(--water-mid);
       box-shadow: 0 0 0 3px rgba(0, 82, 73, 0.15);
     }
+
+    @media (min-width: 768px) {
+      min-height: 0;
+      padding: 0.7rem 0.9rem;
+      font-size: 1rem;
+    }
   }
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .form-actions {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(0, 82, 73, 0.1);
+
+  button {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 1rem;
+
+    button {
+      width: auto;
+    }
+  }
 }
 
 .btn-back {
-  padding: 0.7rem 1.25rem;
+  padding: 0.75rem 1.25rem;
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: white;
   color: var(--water-dark);
   border: 1px solid var(--water-mid);
@@ -91,10 +133,19 @@
   &:hover {
     background: var(--water-light);
   }
+
+  @media (min-width: 768px) {
+    min-height: 0;
+    padding: 0.7rem 1.25rem;
+  }
 }
 
 .btn-submit {
-  padding: 0.7rem 1.5rem;
+  padding: 0.75rem 1.5rem;
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--water-dark);
   color: white;
   border: none;
@@ -110,15 +161,24 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  @media (min-width: 768px) {
+    min-height: 0;
+    padding: 0.7rem 1.5rem;
+  }
 }
 
 .order-summary {
-  padding: 1.5rem;
+  padding: 1.25rem;
   background: var(--water-light);
   border-radius: 12px;
   border: 1px solid rgba(0, 82, 73, 0.15);
-  position: sticky;
-  top: 2rem;
+
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+  }
 }
 
 .order-summary h2 {
@@ -131,8 +191,13 @@
   list-style: none;
   padding: 0;
   margin: 0 0 1rem 0;
-  max-height: 240px;
+  max-height: 200px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media (min-width: 768px) {
+    max-height: 240px;
+  }
 }
 
 .order-items li {
@@ -164,10 +229,14 @@
 
 .success-state {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem;
   background: var(--water-light);
   border-radius: 12px;
   border: 1px solid rgba(0, 82, 73, 0.15);
+
+  @media (min-width: 768px) {
+    padding: 4rem 2rem;
+  }
 }
 
 .success-icon {
@@ -195,7 +264,10 @@
 }
 
 .success-state .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
   padding: 0.9rem 2rem;
   background: var(--water-dark);
   color: white;

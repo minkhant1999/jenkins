@@ -1,4 +1,4 @@
-/* Aquatic Plants – global styles */
+/* Aquatic Plants – global styles (mobile-first, responsive) */
 :root {
   --water-dark: #005249;
   --water-mid: #00796b;
@@ -6,6 +6,12 @@
   --leaf: #80cbc4;
   --text: #1a1a1a;
   --text-muted: #5a5a5a;
+  /* Touch target minimum (accessibility) */
+  --touch-min: 44px;
+  /* Breakpoints (use in media queries) */
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
 }
 
 *,
@@ -16,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -25,6 +32,9 @@ body {
   line-height: 1.5;
   color: var(--text);
   background: #f5faf9;
+  /* Safe area for notched devices */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 a {
@@ -43,4 +53,20 @@ button {
 
 input {
   font-family: inherit;
+}
+
+/* Base responsive container */
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
