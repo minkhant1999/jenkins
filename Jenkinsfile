@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    // Poll SCM every minute
+    triggers {
+        pollSCM('* * * * *')
+    }
+
     // Use NodeJS installed by Jenkins plugin
     tools {
         nodejs 'Node20'
