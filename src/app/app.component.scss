@@ -1,0 +1,83 @@
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--water-dark);
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 82, 73, 0.2);
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: var(--leaf);
+  color: var(--water-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  min-height: calc(100vh - 140px);
+}
+
+.site-footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  background: var(--water-dark);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0;
+}

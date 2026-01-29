@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'jenkins';
+  year = new Date().getFullYear();
+
+  constructor(public cart: CartService) {}
+
+  get cartCount(): number {
+    return this.cart.getItemCount();
+  }
 }

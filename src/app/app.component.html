@@ -1,3 +1,19 @@
-Hello Jenkins with firebase Poll SCM
+<header class="site-header">
+  <a routerLink="/" class="logo">🌿 Aquatic Plants</a>
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+      Cart
+      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </a>
+  </nav>
+</header>
 
-hello world
+<main class="main">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="site-footer">
+  <p>© {{ year }} Aquatic Plants. Quality plants for your aquarium.</p>
+</footer>

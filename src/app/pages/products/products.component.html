@@ -1,0 +1,25 @@
+<section class="products-page">
+  <header class="page-header">
+    <h1>Aquatic Plants</h1>
+    <p>Choose from our selection of healthy, aquarium-ready plants.</p>
+  </header>
+
+  <div class="product-grid">
+    <article *ngFor="let product of products" class="product-card">
+      <div class="product-image">
+        <img [src]="product.image" [alt]="product.name" />
+        <span class="category-badge">{{ product.category }}</span>
+      </div>
+      <div class="product-body">
+        <h2>{{ product.name }}</h2>
+        <p class="description">{{ product.description }}</p>
+        <div class="product-footer">
+          <span class="price">${{ product.price.toFixed(2) }}</span>
+          <button type="button" class="btn-add" (click)="addToCart(product)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

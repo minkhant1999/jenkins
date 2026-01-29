@@ -1,0 +1,44 @@
+<section class="cart-page">
+  <header class="page-header">
+    <h1>Your Cart</h1>
+    <p *ngIf="items.length === 0">Your cart is empty. Add some plants!</p>
+  </header>
+
+  <div *ngIf="items.length > 0" class="cart-layout">
+    <div class="cart-items">
+      <article *ngFor="let item of items" class="cart-item">
+        <div class="item-image">
+          <img [src]="item.image" [alt]="item.name" />
+        </div>
+        <div class="item-details">
+          <h2>{{ item.name }}</h2>
+          <p class="item-price">${{ item.price.toFixed(2) }} each</p>
+          <div class="quantity-controls">
+            <button type="button" (click)="updateQuantity(item, -1)" [disabled]="item.quantity <= 1">−</button>
+            <span class="qty">{{ item.quantity }}</span>
+            <button type="button" (click)="updateQuantity(item, 1)">+</button>
+          </div>
+        </div>
+        <div class="item-total">
+          <span>${{ (item.price * item.quantity).toFixed(2) }}</span>
+          <button type="button" class="remove" (click)="remove(item)" title="Remove">×</button>
+        </div>
+      </article>
+    </div>
+
+    <aside class="cart-summary">
+      <h2>Summary</h2>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>${{ total.toFixed(2) }}</span>
+      </div>
+      <button type="button" class="btn-checkout" (click)="goToCheckout()">Proceed to Checkout</button>
+      <a routerLink="/products" class="link-continue">Continue shopping</a>
+    </aside>
+  </div>
+
+  <div *ngIf="items.length === 0" class="empty-state">
+    <span class="empty-icon">🛒</span>
+    <a routerLink="/products" class="btn-primary">Browse Plants</a>
+  </div>
+</section>
