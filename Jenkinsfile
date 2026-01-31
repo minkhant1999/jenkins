@@ -41,6 +41,9 @@ pipeline {
         }
 
         stage('Docker Build and Run') {
+            when {
+                expression { return sh(script: 'command -v docker', returnStatus: true) == 0 }
+            }
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build -t aquatic-plants:latest .'
