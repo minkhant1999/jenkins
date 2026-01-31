@@ -40,6 +40,17 @@ pipeline {
             }
         }
 
+        stage('Docker Build and Run') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t aquatic-plants:latest .'
+                sh 'docker stop aquatic-plants || true'
+                sh 'docker rm aquatic-plants || true'
+                echo 'Running container on port 8181...'
+                sh 'docker run -d -p 8181:4500 --name aquatic-plants aquatic-plants:latest'
+            }
+        }
+
         stage('Deploy to Firebase') { //Jenkins will deploy the Angular app to Firebase Hosting as we have set up in the project
             steps {
                 echo 'Deploying to Firebase Hosting...'
