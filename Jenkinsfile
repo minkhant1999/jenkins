@@ -1,12 +1,17 @@
+// =============================================================================
+// PIPELINE DISABLED – entire pipeline commented out. Uncomment the block below
+// and remove or comment out the "Pipeline disabled" block to re-enable.
+// =============================================================================
+
+
 pipeline {
+
     agent any
 
-    // Poll SCM every minute
     triggers {
         pollSCM('* * * * *')
     }
 
-    // Use NodeJS installed by Jenkins plugin
     tools {
         nodejs 'Node20'
     }
@@ -17,13 +22,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout') { //Jenkins will checkout the code from the repository to the workspace
+        stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Install Dependencies') { //Jenkins will install the dependencies for the project using node from tools  in the workspace read from package.json same as our local machine
+        stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
                 sh 'node -v'
@@ -33,28 +38,14 @@ pipeline {
             }
         }
 
-        stage('Build Angular App') { //Jenkins will build the Angular app in the workspace same as our local machine
+        stage('Build Angular App') {
             steps {
                 echo 'Building Angular app...'
                 sh 'npx ng build --configuration production'
             }
         }
 
-        stage('Docker Build and Run') {
-            when {
-                expression { return sh(script: 'command -v docker', returnStatus: true) == 0 }
-            }
-            steps {
-                echo 'Building Docker image...'
-                sh 'docker build -t aquatic-plants:latest .'
-                sh 'docker stop aquatic-plants || true'
-                sh 'docker rm aquatic-plants || true'
-                echo 'Running container on port 8181...'
-                sh 'docker run -d -p 8181:4500 --name aquatic-plants aquatic-plants:latest'
-            }
-        }
-
-        stage('Deploy to Firebase') { //Jenkins will deploy the Angular app to Firebase Hosting as we have set up in the project
+        stage('Deploy to Firebase') {
             steps {
                 echo 'Deploying to Firebase Hosting...'
                 sh 'firebase deploy --token $FIREBASE_TOKEN'
@@ -71,5 +62,6 @@ pipeline {
         }
     }
 }
+
 
 
