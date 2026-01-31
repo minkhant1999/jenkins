@@ -17,13 +17,13 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout') { //Jenkins will checkout the code from the repository to the workspace
             steps {
                 checkout scm
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Dependencies') { //Jenkins will install the dependencies for the project using node from tools  in the workspace read from package.json same as our local machine
             steps {
                 echo 'Installing dependencies...'
                 sh 'node -v'
@@ -33,14 +33,14 @@ pipeline {
             }
         }
 
-        stage('Build Angular App') {
+        stage('Build Angular App') { //Jenkins will build the Angular app in the workspace same as our local machine
             steps {
                 echo 'Building Angular app...'
                 sh 'npx ng build --configuration production'
             }
         }
 
-        stage('Deploy to Firebase') {
+        stage('Deploy to Firebase') { //Jenkins will deploy the Angular app to Firebase Hosting as we have set up in the project
             steps {
                 echo 'Deploying to Firebase Hosting...'
                 sh 'firebase deploy --token $FIREBASE_TOKEN'
@@ -59,46 +59,3 @@ pipeline {
 }
 
 
-// //new
-// pipeline {
-//     agent any
-
-//     environment {
-//         FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
-//     }
-
-//     stages {
-
-//         stage('Checkout') {
-//             steps {
-//                 checkout scm
-//             }
-//         }
-
-//         stage('Build Angular') {
-//             steps {
-//                 script {
-//                     docker.image('node:18-alpine').inside {
-//                         sh '''
-//                           npm install
-//                           npm run build
-//                         '''
-//                     }
-//                 }
-//             }
-//         }
-
-//         stage('Deploy to Firebase') {
-//             steps {
-//                 script {
-//                     docker.image('node:18-alpine').inside {
-//                         sh '''
-//                           npm install -g firebase-tools
-//                           firebase deploy --only hosting --token "$FIREBASE_TOKEN"
-//                         '''
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
